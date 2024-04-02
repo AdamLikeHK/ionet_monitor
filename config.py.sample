@@ -1,0 +1,12 @@
+common = {
+    "RefreshToken": "",
+    "IntervalMinute": 2,
+    "RestartMinute": 1,
+
+    "DeviceId": "",
+    "UserId": "",
+    "DeviceName": "",
+    "System": "mac",
+    "UseGpus": False
+}
+
