@@ -1,7 +1,10 @@
 common = {
-    "RefreshToken": "",
-    "IntervalMinute": 2,
-    "RestartMinute": 1,
+    "RefreshToken": "Ke2OLTw4q9o-5l1GiMA_UA",
+    "Apikey": "",
+
+    "IntervalMinute": 5,
+    "RestartMinute": 14,
+    "LogLevel": 1,
 
     "DeviceId": "",
     "UserId": "",
