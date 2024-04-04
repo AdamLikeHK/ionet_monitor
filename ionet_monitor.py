@@ -155,7 +155,7 @@ class IONetMonitor():
                     else:
                         if time.time() - lastDownTime >= config.common["RestartMinute"]*60:
                             print("Restart ionet")
-                            result = os.popen(cmd)
+                            result = os.popen(self.cmd)
                             print(result.read())
                             lastDownTime = None
 
