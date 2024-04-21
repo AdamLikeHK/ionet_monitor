@@ -56,7 +56,7 @@ class IONetMonitor():
             return True
 
         except Exception as e:
-            print(f"refresh exception: {deviceId}")
+            print(f"refresh exception")
             print(e)
             return False
 
@@ -107,7 +107,7 @@ class IONetMonitor():
             return devices
 
         except Exception as e:
-            print(f"devicesList exception: {deviceId}")
+            print(f"devicesList exception")
             print(e)
             return None
 
