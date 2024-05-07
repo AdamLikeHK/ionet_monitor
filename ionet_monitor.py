@@ -2,8 +2,8 @@ import requests
 import json
 import time
 from datetime import datetime
-import os
 import config
+import subprocess
 
 class IONetMonitor():
     def __init__(self):
@@ -12,16 +12,16 @@ class IONetMonitor():
         self.refreshToken = config.common['RefreshToken']
 
         if config.common['System'] == 'mac':
-            process = "./launch_binary_mac"
+            process = "./io_net_launch_binary_mac"
             systemParam = '--operating_system="macOS"'
         else:
-            process = "./launch_binary_linux"
+            process = "./io_net_launch_binary_linux"
             systemParam = '--operating_system="linux"'
         if config.common['UseGpus']:
             gpuParam = '--usegpus=true'
         else:
             gpuParam = '--usegpus=false'
-        self.cmd = f"{process} --device_id={config.common['DeviceId']} --user_id={config.common['UserId']} {systemParam} {gpuParam} --device_name={config.common['DeviceName']}"
+        self.cmd = f"{process} --device_id={config.common['DeviceId']} --user_id={config.common['UserId']} {systemParam} {gpuParam} --device_name={config.common['DeviceName']} --token={config.common['Token']}"
 
         if config.common['LogLevel'] <= 0:
             print(self.cmd)
@@ -154,9 +154,13 @@ class IONetMonitor():
                         lastDownTime = time.time()
                     else:
                         if time.time() - lastDownTime >= config.common["RestartMinute"]*60:
-                            print("Restart ionet")
-                            result = os.popen(self.cmd)
-                            print(result.read())
+                            print("Restart ionet ...")
+                            process = subprocess.Popen(self.cmd, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+                            time.sleep(5)
+                            output, _ = process.communicate('Y\n'.encode())
+                            print(output.decode('utf-8'))
+
+                            print("Restart ionet finished.")
                             lastDownTime = None
 
             time.sleep(config.common["IntervalMinute"]*60)
